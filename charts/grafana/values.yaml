@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: grafana/grafana
+  tag: 8.3.4
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+adminUser: admin
+adminPassword: admin
+
+datasources:
+  prometheus:
+    type: prometheus
+    url: http://prometheus:9090
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,54 @@
+replicaCount: 1
+
+image:
+  repository: grafana/loki
+  tag: 2.4.1
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3100
+
+config:
+  auth_enabled: false
+  server:
+    http_listen_port: 3100
+  ingester:
+    lifecycler:
+      ring:
+        kvstore:
+          store: inmemory
+        replication_factor: 1
+    chunk_idle_period: 3m
+    chunk_retain_period: 30s
+    max_transfer_retries: 20
+  schema_config:
+    configs:
+      - from: 2020-10-24
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 168h
+  storage_config:
+    boltdb_shipper:
+      active_index_directory: /data/loki/boltdb-shipper-active
+      cache_location: /data/loki/boltdb-shipper-cache
+      shared_store: filesystem
+    filesystem:
+      directory: /data/loki/chunks
+    bucketNames:
+      chunks: loki-chunks  # Add this to resolve the nil pointer issue
+  limits_config:
+    enforce_metric_name: false
+    reject_old_samples: true
+    reject_old_samples_max_age: 168h
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

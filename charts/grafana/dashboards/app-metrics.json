@@ -1,0 +1,29 @@
+{
+    "dashboard": {
+      "id": null,
+      "title": "Application Metrics",
+      "panels": [
+        {
+          "type": "graph",
+          "title": "HTTP Requests Rate",
+          "targets": [
+            {
+              "expr": "rate(http_requests_total[5m])",
+              "format": "time_series"
+            }
+          ]
+        },
+        {
+          "type": "graph",
+          "title": "Error Rate",
+          "targets": [
+            {
+              "expr": "rate(http_requests_total{status=~\"5..\"}[5m])",
+              "format": "time_series"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

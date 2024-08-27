@@ -1,0 +1,27 @@
+global:
+  image:
+    pullPolicy: IfNotPresent
+
+prometheus:
+  replicaCount: 1
+
+grafana:
+  adminUser: admin
+  adminPassword: strongpassword
+
+alertmanager:
+  config:
+    receivers:
+      - name: 'default'
+        email_configs:
+        - to: 'alerts@example.com'
+          from: 'noreply@example.com'
+          smarthost: 'smtp.example.com:587'
+          auth_username: 'username'
+          auth_password: 'password'
+
+loki:
+  config:
+    storage_config:
+      filesystem:
+        directory: /data/loki/chunks

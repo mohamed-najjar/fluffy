@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+  labels:
+    app: alertmanager
+data:
+  alertmanager.yml: |-
+    global:
+      resolve_timeout: {{ .Values.config.global.resolve_timeout }}
+
+    route:
+      group_by: {{ .Values.config.route.group_by | toJson }}
+      group_wait: {{ .Values.config.route.group_wait }}
+      group_interval: {{ .Values.config.route.group_interval }}
+      repeat_interval: {{ .Values.config.route.repeat_interval }}
+      receiver: {{ .Values.config.route.receiver }}
+
+    receivers:
+    {{- range .Values.config.receivers }}
+      - name: '{{ .name }}'
+        email_configs:
+        {{- range .email_configs }}
+          - to: '{{ .to }}'
+            from: '{{ .from }}'
+            smarthost: '{{ .smarthost }}'
+            auth_username: '{{ .auth_username }}'
+            auth_password: '{{ .auth_password }}'
+        {{- end }}
+    {{- end }}

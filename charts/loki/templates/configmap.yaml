@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki-config
+  labels:
+    app: loki
+data:
+  loki-config.yaml: |-
+    auth_enabled: {{ .Values.config.auth_enabled }}
+
+    server:
+      http_listen_port: {{ .Values.config.server.http_listen_port }}
+
+    ingester:
+      lifecycler:
+        ring:
+          kvstore:
+            store: {{ .Values.config.ingester.lifecycler.ring.kvstore.store }}
+          replication_factor: {{ .Values.config.ingester.lifecycler.ring.replication_factor }}
+      chunk_idle_period: {{ .Values.config.ingester.chunk_idle_period }}
+      chunk_retain_period: {{ .Values.config.ingester.chunk_retain_period }}
+      max_transfer_retries: {{ .Values.config.ingester.max_transfer_retries }}
+
+    schema_config:
+      configs:
+        - from: {{ .Values.config.schema_config.configs[0].from }}
+          store: {{ .Values.config.schema_config.configs[0].store }}
+          object_store: {{ .Values.config.schema_config.configs[0].object_store }}
+          schema: {{ .Values.config.schema_config.configs[0].schema }}
+          index:
+            prefix: {{ .Values.config.schema_config.configs[0].index.prefix }}
+            period: {{ .Values.config.schema_config.configs[0].index.period }}
+
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: {{ .Values.config.storage_config.boltdb_shipper.active_index_directory }}
+        cache_location: {{ .Values.config.storage_config.boltdb_shipper.cache_location }}
+        cache_ttl: {{ .Values.config.storage_config.boltdb_shipper.cache_ttl }}
+        shared_store: {{ .Values.config.storage_config.boltdb_shipper.shared_store }}
+      filesystem:
+        directory: {{ .Values.config.storage_config.filesystem.directory }}
+
+    limits_config:
+      enforce_metric_name: {{ .Values.config.limits_config.enforce_metric_name }}
+      reject_old_samples: {{ .Values.config.limits_config.reject_old_samples }}
+      reject_old_samples_max_age: {{ .Values.config.limits_config.reject_old_samples_max_age }}

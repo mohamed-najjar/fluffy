@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  labels:
+    app: grafana
+data:
+  system-metrics.json: |-
+    {{ .Files.Get "dashboards/system-metrics.json" | indent 4 }}
+  app-metrics.json: |-
+    {{ .Files.Get "dashboards/app-metrics.json" | indent 4 }}

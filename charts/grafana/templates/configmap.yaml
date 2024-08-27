@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  labels:
+    app: grafana
+data:
+  grafana.ini: |-
+    [security]
+    admin_user = {{ .Values.adminUser }}
+    admin_password = {{ .Values.adminPassword }}
+
+  datasources.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: {{ .Values.datasources.prometheus.type }}
+      url: {{ .Values.datasources.prometheus.url }}
+      access: proxy
+      isDefault: true

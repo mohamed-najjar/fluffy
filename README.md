@@ -48,9 +48,9 @@ kubectl port-forward svc/grafana 3000:80
 ### Documentation
 For detailed information on the architecture, customization, deployment, and troubleshooting, please refer to the following documents:
 
-[Architecture Overview] (./docs/architecture) 
-[Customization Guide] (./docs/customization) 
-[Deployment Guide] (./docs/deployment) 
+[Architecture Overview] (./docs/architecture)
+[Customization Guide] (./docs/customization)
+[Deployment Guide] (./docs/deployment)
 [Troubleshooting] (./docs/Troubleshooting) Guide 
 
 Contributing Contributions are welcome! Please open an issue or submit a pull request if you have suggestions for improvements or additional features.

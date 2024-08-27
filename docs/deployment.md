@@ -1,5 +1,3 @@
-# START OF FILE: deployment.md
-
 # Deployment Guide
 
 ## Prerequisites

@@ -1,13 +1,3 @@
-
-### **2. `docs/customization.md`**
-
-```markdown
-# START OF FILE: customization.md
-
-# Customizing the Monitoring Stack
-
-## Customizing Prometheus
-
 ### Scrape Configurations
 To add or modify scrape configurations in Prometheus, update the `prometheus/templates/configmap.yaml` file with the desired targets:
 
